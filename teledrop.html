@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TeleDrop — Privacy Policy</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.6;color:#1b1f24}
+    h1,h2{line-height:1.2}
+    a{color:#0b57d0}
+  </style>
+</head>
+<body>
+<h1>TeleDrop — Privacy Policy</h1>
+  <p><strong>Last updated:</strong> 2026-09-26</p>
+<p>TeleDrop is a Chrome extension that helps the user find and download media from the currently open Telegram Web page. It runs only on <code>https://web.telegram.org/</code>. It is not affiliated with Telegram.</p>
+<p>This policy describes how TeleDrop handles user data, including website content processed only on the device. Chrome Web Store rules require this disclosure even when nothing is sent to the developer.</p>
+
+<h2>Single purpose</h2>
+<p>TeleDrop’s only purpose is to scan media in the open Telegram Web chat (and open Info tabs) and let the user download selected items. User data is used only for that purpose. TeleDrop does not use user data for advertising, analytics, profiling, or resale.</p>
+<p>The use of information handled by this extension adheres to the <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data">Chrome Web Store User Data Policy</a>, including the Limited Use requirements.</p>
+
+<h2>Data handled on the device</h2>
+<p>The extension reads information already available to the Telegram Web page in the user’s logged-in session. It does not scrape the left chat list or load the full chat history by itself. It may handle:</p>
+<ul>
+  <li>Telegram message identifiers present in the page (<code>mid</code>, <code>peerId</code>, <code>docId</code>)</li>
+  <li>Media metadata such as type, filename, size, dimensions, or duration when Telegram Web exposes them</li>
+  <li>Media URLs, blobs, canvas thumbnails, or other previews already in the page</li>
+  <li>Media in the open chat, including photos or files that Telegram has not auto-downloaded (placeholders the user would otherwise click to load). Those items are identified from the page DOM; the original file is requested from Telegram only if the user starts a download</li>
+  <li>When the user opens them, Telegram Web Info tabs such as Photos, Files, and Stories</li>
+  <li>When the user enables those options, avatars / profile pictures and website link-preview media that Telegram Web already shows</li>
+</ul>
+<p>This is website content processed locally in the browser. TeleDrop does not operate a developer-controlled server and does not send chat messages, media files, contacts, cookies, or account credentials to any developer-controlled server.</p>
+
+<h2>Requests to Telegram, not to the developer</h2>
+<p>Traffic that leaves the device for this product goes to Telegram (or another site the user opens), over HTTPS in the existing browser session. It is not sent to the TeleDrop developer.</p>
+<p>When the user starts a download (including Download, Download RAR, or a TeleDrop download button), the extension may request the original file from Telegram using the download manager of the Telegram Web client that is open (Web K or Web A) or a media URL already on the page.</p>
+<p>While scanning, the extension may also ask Telegram Web for a small preview thumbnail or filename/size from the in-page message store, so the scanner can list items that are on screen but not fully loaded. That uses the same Telegram session. It does not upload chat content to the developer.</p>
+<p>The extension may read the browser UI language on the device to pick a translation when language is set to Automatic. That value stays on the device.</p>
+
+<h2>Local storage and retention</h2>
+<p>Preferences are stored only on the user’s device with Chrome’s <code>storage.local</code> API. They never leave the device through this extension. This may include:</p>
+<ul>
+  <li>Interface language preference</li>
+  <li>Default scan filters</li>
+  <li>Whether automatic scan is enabled</li>
+  <li>Whether download buttons are shown on media</li>
+  <li>Whether profile photos and link-preview media are included in scans</li>
+  <li>Last scanner layout (large thumbnails, compact thumbnails, or details)</li>
+  <li>Position of the floating scanner button on the page</li>
+  <li>How many files were saved by Download selected or Download RAR when that batch was not cancelled and had no failures, and how many of those batches finished cleanly. TeleDrop uses this only to decide when an optional store-rating dialog may appear</li>
+  <li>How many times that dialog was postponed, whether it was dismissed for the current version, and the extension version those counters belong to. When TeleDrop updates to another version, the postpone and that version-only dismiss start over on the device</li>
+  <li>If the user closes that dialog without choosing, the clean-batch count at that moment, so it can appear again after the next successful download. That count stays on the device and is not sent anywhere</li>
+  <li>Whether the user chose Rate, on the dialog or from Help. That choice stays on the device across updates so the dialog is not shown again</li>
+</ul>
+<p>The rating-dialog counters are not analytics and are not sent to the developer. The in-page scan list lives in memory for that Telegram Web tab and is discarded when the tab is closed or the page is reloaded. Preferences remain until the user changes them or uninstalls TeleDrop. Uninstalling the extension deletes this storage. The developer cannot access or remotely delete data on the user’s computer.</p>
+
+<h2>Permissions</h2>
+<ul>
+  <li><code>storage</code> — preferences and the local rating-dialog counters listed above</li>
+  <li><code>downloads</code> — detect when a save TeleDrop started has finished or failed, so batch downloads stay sequential</li>
+  <li>Host access to <code>https://web.telegram.org/*</code> — scanner UI and download bridge; no other sites</li>
+</ul>
+
+<h2>MAIN-world script</h2>
+<p>A content script runs in the page’s MAIN JavaScript world so TeleDrop can use Telegram Web objects already in that page. On Web K that is <code>mtprotoMessagePort</code> and <code>appDownloadManager</code>. On Web A that is the client’s in-page state (<code>getGlobal</code> / <code>getActions().downloadMedia</code>) and media download URLs. That is used to:</p>
+<ul>
+  <li>Read message metadata and preview thumbs for the scanner list</li>
+  <li>Download the original file after the user clicks Download, Download RAR, or a TeleDrop download button (chat media, Stories viewer, or media viewer)</li>
+</ul>
+<p>It is not used to collect, store, or send chat content, contacts, or credentials to the developer.</p>
+
+<h2>Downloads</h2>
+<p>Files are saved to the user’s computer by the browser or by Telegram Web. Optional RAR packaging happens locally in the browser.</p>
+<p>The extension uses Chrome’s downloads API only to see when a save that TeleDrop started has finished (so batch downloads stay sequential) or was interrupted. It does not read the contents of downloaded files, and it does not start, cancel, or change unrelated downloads.</p>
+
+<h2>Third parties</h2>
+<p>The extension does not sell user data and does not include advertising, analytics, or crash-reporting SDKs. Telegram Web remains subject to Telegram’s own privacy policy and terms. Download and preview traffic to Telegram is described above.</p>
+<p>If the user taps Buy me a coffee, the browser opens Buy Me a Coffee (<a href="https://www.buymeacoffee.com/onimock">buymeacoffee.com/onimock</a>) in a new tab. That site has its own privacy policy. TeleDrop does not send chat or media data there.</p>
+<p>If the user chooses Rate on the dialog or the Rate link in Help, the browser opens this extension’s reviews page on the Chrome Web Store (<a href="https://chromewebstore.google.com/">chromewebstore.google.com</a>) in a new tab. Opening that page does not send Telegram chat or media, and TeleDrop does not learn whether a review was published.</p>
+
+<h2>Children</h2>
+<p>TeleDrop is not directed at children under 13 and does not knowingly collect personal information from children.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, the date at the top is updated. Continued use of the extension after an update means the new policy applies to later use.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy or the extension: <a href="mailto:onimock@gmail.com">onimock@gmail.com</a>.</p>
+</body>
+</html>
